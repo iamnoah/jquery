@@ -266,8 +266,11 @@ jQuery.fn.extend({
 			// Make sure that the elements are removed from the DOM before they are inserted
 			// this can help fix replacing a parent with child elements
 			if ( !jQuery.isFunction( value ) ) {
-				value = jQuery( value ).detach();
-
+			    // API says a string is an HTML string, so evaling and 
+			    // detaching will only cause problems
+			    if(typeof value !== 'string') {
+				    value = jQuery(value).detach();
+			    }
 			} else {
 				return this.each(function(i) {
 					var self = jQuery(this), old = self.html();
